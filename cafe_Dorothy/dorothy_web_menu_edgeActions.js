@@ -492,6 +492,19 @@ sym.play(2059);
          sym.play(3000);
          
          var ros = sym.getVariable("ROS");
+         var pub = new ROSLIB.Topic({
+            ros: ros,
+            name: '/send_order',
+            messageType: 'std_msgs/String'
+            });
+
+         var message = new ROSLIB.Message({
+            data : 'Order',
+            });
+
+         pub.publish(message);
+
+         /*
 			var UserOrderClient = new ROSLIB.ActionClient({
 			 ros : ros,
 			 serverName : '/cafe_taskcoordinator/send_order',
@@ -583,10 +596,12 @@ sym.play(2059);
 			});
 			console.log("goal.send()");
 			goal.send();
+      */
 			sym.$("status_text").html("Order is received.");
 // stop the timeline at the given position (ms or label)
          
 
+      
       });
       //Edge binding end
 
